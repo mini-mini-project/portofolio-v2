@@ -1,0 +1,358 @@
+:root {
+    --color-dark: #0f172a; /* Latar belakang sangat gelap (Cool) */
+    --color-light: #e2e8f0; /* Teks terang */
+    --color-accent: #06b6d4; /* Aksen cyan neon (Nano Tech) */
+    --color-shadow: rgba(6, 182, 212, 0.5); /* Bayangan neon */
+    --transition-duration: 0.8s;
+    --header-height: 5rem; /* Tinggi header yang konsisten */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* HILANGKAN SCROLLING & TAMPILAN LAYAR PENUH */
+html, body {
+    height: 100%;
+    overflow: hidden; 
+}
+body.no-scroll {
+    overflow: hidden; /* Mencegah scrolling saat menu mobile terbuka */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+/* === Navbar & Header === */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    height: var(--header-height);
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.1);
+    position: relative;
+    z-index: 1000;
+    flex-shrink: 0;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-shadow: 0 0 5px var(--color-shadow);
+}
+
+.nav-links { list-style: none; display: flex; }
+.nav-links a { color: var(--color-light); text-decoration: none; font-weight: 600; padding: 0.5rem 1rem; position: relative; transition: color 0.3s ease; }
+.nav-links a:hover, .nav-links a.active-link { color: var(--color-accent); text-shadow: 0 0 8px var(--color-shadow); }
+.nav-links a.active-link::after {
+    content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%) scaleX(1);
+    height: 3px; width: 100%; background-color: var(--color-accent); box-shadow: 0 0 10px var(--color-accent);
+    transition: transform 0.4s ease;
+}
+
+/* === Area Konten Utama & Transisi Nano Tech === */
+.main-content-area {
+    flex-grow: 1;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden; 
+    /* Tinggi sisa layar setelah dikurangi header */
+    height: calc(100vh - var(--header-height)); 
+}
+
+.page-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 3rem 5%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content dan align-items akan diatur oleh id spesifik section */
+    
+    /* State Awal: Tersembunyi (Disperse) */
+    opacity: 0;
+    transform: perspective(1000px) scale(0.8) translateY(-20px);
+    pointer-events: none; 
+
+    transition: opacity var(--transition-duration) ease-in-out, 
+                transform var(--transition-duration) ease-in-out;
+    z-index: 5;
+}
+
+.page-section.active-page {
+    /* State Aktif: Muncul (Assemble) */
+    opacity: 1;
+    transform: perspective(1000px) scale(1) translateY(0);
+    pointer-events: all; 
+    z-index: 10;
+}
+
+/* === TATA LETAK SECTION HOME KHUSUS (Gambar disamping Teks) === */
+#home.page-section {
+    align-items: center; /* Pusatkan wrapper secara vertikal */
+    justify-content: center; /* Pusatkan wrapper secara horizontal */
+}
+
+.home-content-wrapper {
+    display: flex;
+    align-items: center; /* Pusatkan vertikal antara teks dan gambar */
+    gap: 3rem; /* Jarak antara teks dan gambar */
+    max-width: 900px;
+    width: 100%;
+}
+
+.text-content {
+    flex-grow: 1; 
+    text-align: left;
+}
+
+.profile-image-container {
+    flex-shrink: 0;
+    width: 300px; 
+    height: 400px;
+    border-radius: 50px;
+    overflow: hidden;
+    border: 3px solid var(--color-accent); 
+    box-shadow: 0 0 25px var(--color-shadow); 
+    transition: all 0.3s ease;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* === END SECTION HOME KHUSUS === */
+
+/* === Gaya Konten Section Lain (Default) === */
+#about.page-section, #experience.page-section, #gallery.page-section, #contact.page-section {
+    justify-content: center;
+    align-items: flex-start;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 2rem; }
+.highlight { color: var(--color-accent); text-shadow: 0 0 15px var(--color-shadow); }
+.content-box, .timeline-item, .gallery-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    border-left: 5px solid var(--color-accent);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+}
+
+.content-box.pendidikan {
+    text
+}
+
+.timeline-item { width: 100%; max-width: 600px; margin-bottom: 1rem; }
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 800px;
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+.nano-button {
+    background: var(--color-accent);
+    color: var(--color-dark);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+/* Placeholder Nano Visual Effect */
+#nano-visual-effect {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 300px; height: 300px; border: 3px solid var(--color-accent);
+    box-shadow: 0 0 25px var(--color-accent); border-radius: 50%;
+    opacity: 0.1; pointer-events: none;
+}
+
+
+/* === Gaya Tombol Hamburger === */
+.hamburger-btn {
+    display: none; 
+    flex-direction: column; justify-content: space-around;
+    width: 30px; height: 25px; cursor: pointer; z-index: 1000;
+}
+.hamburger-btn .bar {
+    width: 100%; height: 3px; background-color: var(--color-accent);
+    box-shadow: 0 0 5px var(--color-shadow); transition: all 0.3s ease-in-out;
+}
+.hamburger-btn.is-active .bar:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.hamburger-btn.is-active .bar:nth-child(2) { opacity: 0; }
+.hamburger-btn.is-active .bar:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+
+/* === Gaya Menu Mobile Overlay === */
+.mobile-menu-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(15, 23, 42, 0.98); 
+    backdrop-filter: blur(10px); z-index: 999;
+    
+    transform: translateX(100%); /* Geser dari kanan */
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.6s ease;
+}
+.mobile-menu-overlay.is-open { transform: translateX(0); opacity: 1; }
+.mobile-nav-links {
+    list-style: none; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; height: 100%;
+}
+.mobile-nav-links a {
+    color: var(--color-light); font-size: 2rem; text-decoration: none; font-weight: 600;
+    display: block; padding: 1rem 0; transition: color 0.3s ease;
+}
+
+
+/* ========================================= */
+/* === RESPONSIVITAS (UKURAN MOBILE) === */
+/* ========================================= */
+@media (max-width: 768px) {
+    /* Navbar Responsif */
+    #desktop-nav { display: none; }
+    .hamburger-btn { display: flex; }
+
+    /* Konten Responsif */
+    .page-section {
+        /* Sesuaikan padding agar konten tidak tertutup header */
+        padding: calc(var(--header-height) + 1rem) 5% 2rem 5%; 
+        justify-content: flex-start;
+        text-align: center;
+        align-items: center;
+    }
+    
+    /* Home Section Mobile */
+    .home-content-wrapper {
+        flex-direction: column; /* Tumpuk gambar dan teks vertikal */
+        gap: 1.5rem;
+        text-align: center;
+    }
+    .text-content {
+        text-align: center; /* Pusatkan teks */
+    }
+    .profile-image-container {
+        width: 150px; /* Perkecil ukuran gambar */
+        height: 150px;
+    }
+
+    /* Ukuran Font Mobile */
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    .subtitle { font-size: 1rem; }
+    .content-box { max-width: 100%; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .contact-form { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr; /* Satu kolom di layar sangat kecil */
+    }
+    .mobile-nav-links a {
+        font-size: 1.5rem;
+    }
+}
+
+/* === SOCIAL MEDIA CONTACT (DISESUAIKAN DENGAN TEMA GELAP & NANO TECH) === */
+.social-media-contact {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 0 10px rgba(6, 182, 212, 0.1);
+    max-width: 500px;
+    width: 100%;
+    margin: 2rem auto;
+}
+
+.social-media-contact h5 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--color-light);
+    text-align: center;
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+}
+
+.social-icons-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Efek hover: scale + neon glow */
+.social-icon:hover {
+    transform: scale(1.15) translateY(-4px);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6),
+                0 0 20px rgba(6, 182, 212, 0.4);
+    z-index: 2;
+}
+
+/* Gradient khusus untuk setiap platform — disesuaikan dengan tema gelap */
+.social-icon.whatsapp { background: linear-gradient(135deg, #128C7E, #075E54); }
+.social-icon.instagram { background: linear-gradient(135deg, #833ab4, #c13584, #e1306c); }
+.social-icon.facebook { background: linear-gradient(135deg, #3b5998, #1e3a8a); }
+.social-icon.twitter { background: #000; }
+.social-icon.linkedin { background: linear-gradient(135deg, #0077b5, #005582); }
+.social-icon.github { background: #24292e; }
+.social-icon.email { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+/* Efek neon halus saat aktif (opsional) */
+.social-icon::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
